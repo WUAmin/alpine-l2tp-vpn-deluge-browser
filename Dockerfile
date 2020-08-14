@@ -21,7 +21,9 @@ RUN set -x \
                 firefox \
     && rm -rf /tmp/* \
     && mkdir -pv /home/deluge/.config \
-    && mkdir -pv /home/deluge/.mozilla
+    && mkdir -pv /home/deluge/.mozilla \
+    && sed -i '/%LAST-CMD_2_REPLACE%/d' /startup.sh \
+    && echo "/startup2.sh" >> "/startup.sh"
 
 
 COPY supervisord.conf /etc/supervisord.conf
@@ -29,4 +31,4 @@ COPY startup2.sh /
 COPY start-deluged.sh /
 COPY start-gui.sh /
 
-CMD ["/startup2.sh"]
+CMD ["/startup.sh"]

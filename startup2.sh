@@ -5,8 +5,7 @@
 echo "startup2: Create user"
 adduser -h /home/deluge -u $USERID --disabled-password deluge
 echo "startup2: Change permissions"
-chown -hv deluge:deluge /home/deluge /home/deluge/.config
-chown -hv deluge:deluge /home/deluge /home/deluge/.config
+chown -hv deluge:deluge /home/deluge /home/deluge/.config /home/deluge/.mozilla
 
 # Run deluge if DELUGED_ENABLE is 1
 if [[ $DELUGED_ENABLE -eq 1 ]];then
@@ -16,6 +15,7 @@ else
   echo "startup2: Ignore start-deluged"
 fi
 
-exec /startup.sh &
+# exec /startup.sh &
 exec /start-gui.sh &
-exec sh ################## REMOVE IT
+
+exec tail -f /dev/null  # %LAST-CMD_2_REPLACE%
