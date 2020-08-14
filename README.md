@@ -24,15 +24,18 @@ export DELUGED_USER=myuser
 export DELUGED_PASS=mypass
 export DELUGED_PORT=58846 # Default port
 export DELUGE_WEB_PORT=8112 # Default port
-export DELUGE_CONFIG=/some/path/deluge
-export DELUGE_DOWNLOAD=/some/path/downloads
-
+export DELUGE_CONFIG='/some/path/deluge'
+export DELUGE_DOWNLOAD='/some/path/downloads'
+export GUI_ENABLE=0
+export GUI_RESOLUTION=1920x1080x24
+export GUI_VNC_ENABLE=1
+export GUI_VNC_PORT=5900
 ```
 `DELUGED_USER`, `DELUGED_PASS` and `DELUGED_PORT` are to connect with [Thin-client mode](https://dev.deluge-torrent.org/wiki/UserGuide/ThinClient#GTKUI) (GTK UI) or [deluge-console](https://dev.deluge-torrent.org/wiki/UserGuide/ThinClient#Console)
 
 `DELUGE_WEB_PORT` is for accessing from browser to [webUI](https://dev.deluge-torrent.org/wiki/UserGuide/ThinClient#WebUI) or [Browser Plugins](https://dev.deluge-torrent.org/wiki/Plugins#BrowserPlugins).
 
-**NOTE**: Defalt password for deluge-web is `deluge`. after connecting to WebUI, you can change WebUI password from perferenaces.
+**NOTE**: Defalt password for deluge-web is `deluge`. after connecting to WebUI, you can change WebUI password from preferences.
 
 `DELUGE_DOWNLOAD` will be mounted to `/home/deluge/Downloads` which is default deluge download folder. This let you download your files straightly out of container.
 
@@ -54,13 +57,13 @@ docker run --rm -it --privileged \
            -e DELUGED_PASS=mypass \
            -p ${DELUGED_PORT}:58846 \
            -p ${DELUGE_WEB_PORT}:8112 \
-           -v ${DELUGE_CONFIG}:/home/deluge/.config/deluge \
-           -v ${DELUGE_DOWNLOAD}:/home/deluge/Downloads \
+           -v "${DELUGE_CONFIG}":/home/deluge/.config/deluge \
+           -v "${DELUGE_DOWNLOAD}":/home/deluge/Downloads \
               wuamin/alpine-l2tp-vpn-deluge
 ```
 You can use `.env` file:
 ```bash
-source .env;docker run --rm -it --privileged -e $(id -u):USERID --env-file .env -p ${DELUGED_PORT}:58846 -p ${DELUGE_WEB_PORT}:8112 -p ${SCOKS5_PORT}:1080 wuamin/alpine-l2tp-vpn-deluge
+source .env;docker run --rm -it --privileged -e $(id -u):USERID --env-file .env -p ${DELUGED_PORT}:58846 -p ${DELUGE_WEB_PORT}:8112 -p ${SCOKS5_PORT}:1080 -p ${GUI_VNC_PORT}:5900 -v "${DELUGE_CONFIG}":/home/deluge/.config/deluge -v "${DELUGE_DOWNLOAD}":/home/deluge/Downloads wuamin/alpine-l2tp-vpn-deluge
 ```
 
 ## Socks5
@@ -78,10 +81,16 @@ docker run --rm -it --privileged \
            -e DELUGED_PASS=mypass \
            -p ${DELUGED_PORT}:58846 \
            -p ${DELUGE_WEB_PORT}:8112 \
-           -v ${DELUGE_CONFIG}:/home/deluge/.config/deluge \
-           -v ${DELUGE_DOWNLOAD}:/home/deluge/Downloads \
+           -v "${DELUGE_CONFIG}":/home/deluge/.config/deluge \
+           -v "${DELUGE_DOWNLOAD}":/home/deluge/Downloads \
               wuamin/alpine-l2tp-vpn-client
 ```
+
+## GUI
+If you set `GUI` to `1` (default value is `0`), the container will run `dante` at startup to provide a socks5 proxy (via VPN). Don not forget to expose port 1080.
+
+/home/deluge/.mozilla
+
 
 
 ## Debugging
