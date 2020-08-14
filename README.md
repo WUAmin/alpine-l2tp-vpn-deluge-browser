@@ -79,6 +79,7 @@ docker run --rm -it --privileged \
            -p ${DELUGE_WEB_PORT}:8112 \
            -v "${DELUGE_CONFIG}":/home/deluge/.config/deluge \
            -v "${DELUGE_DOWNLOAD}":/home/deluge/Downloads \
+           -v "${GUI_FIREFOX_USERDIR}":/home/deluge/.mozilla \
               wuamin/alpine-l2tp-vpn-deluge-browser
 ```
 
