@@ -7,7 +7,7 @@ alpine-l2tp-vpn-deluge-browser
 ![GitHub](https://img.shields.io/github/license/wuamin/alpine-l2tp-vpn-deluge-browser)
 
 
-An Alpine based docker image to offer [deluge](https://deluge-torrent.org/)-[web](https://dev.deluge-torrent.org/wiki/UserGuide/ThinClient#WebUI) client with an [L2TP](https://github.com/xelerance/xl2tpd) over IPsec VPN client w/ PSK (and optionally Socks5) within the container.
+An Alpine based docker image to offer [deluge](https://deluge-torrent.org/)-[web](https://dev.deluge-torrent.org/wiki/UserGuide/ThinClient#WebUI) client with an [L2TP](https://github.com/xelerance/xl2tpd) over IPsec VPN client w/ PSK (and optionally Socks5, [Openbox](http://openbox.org/wiki/Main_Page), VNC, [Firefox](https://www.mozilla.org/en-US/firefox) Browser) within the container.
 
 ## Config
 
@@ -83,7 +83,7 @@ docker run --rm -it --privileged \
 ```
 
 ## GUI
-If you set `GUI_ENABLE` to `1` (default value is `0`), the container will run [openbox](http://openbox.org/wiki/Main_Page) on [xvfb](https://linux.die.net/man/1/xvfb). 
+If you set `GUI_ENABLE` to `1` (default value is `0`), the container will run [Openbox](http://openbox.org/wiki/Main_Page) on [xvfb](https://linux.die.net/man/1/xvfb). 
 By changing `GUI_RESOLUTION`, you can modify xvfb resoulation and color-depth. (`[width]x[height]x[depth]`)
 
 If you enable GUI, by default x11vnc will run too, unless you set `GUI_VNC_ENABLE` to `0`.
